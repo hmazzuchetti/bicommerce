@@ -1,11 +1,11 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  darkMode: ["class"],
+  darkMode: ['class'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
     extend: {
@@ -65,8 +65,8 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)'
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
+        float: 'float 6s ease-in-out infinite',
+        glow: 'glow 2s ease-in-out infinite alternate',
         'slide-up': 'slideUp 0.3s ease-out',
         'fade-in': 'fadeIn 0.5s ease-in'
       },
@@ -76,11 +76,13 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' }
         },
         glow: {
-          '0%': { 
-            boxShadow: '0 0 5px rgb(59 130 246 / 50%), 0 0 20px rgb(59 130 246 / 30%), 0 0 30px rgb(59 130 246 / 20%)' 
+          '0%': {
+            boxShadow:
+              '0 0 5px rgb(59 130 246 / 50%), 0 0 20px rgb(59 130 246 / 30%), 0 0 30px rgb(59 130 246 / 20%)'
           },
-          '100%': { 
-            boxShadow: '0 0 10px rgb(59 130 246 / 80%), 0 0 30px rgb(59 130 246 / 60%), 0 0 40px rgb(59 130 246 / 40%)' 
+          '100%': {
+            boxShadow:
+              '0 0 10px rgb(59 130 246 / 80%), 0 0 30px rgb(59 130 246 / 60%), 0 0 40px rgb(59 130 246 / 40%)'
           }
         },
         slideUp: {
@@ -94,15 +96,17 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'cyber-grid': "linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px)"
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'cyber-grid':
+          'linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px)'
       },
       backgroundSize: {
-        'grid': '20px 20px'
+        grid: '20px 20px'
       }
     }
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: []
+};
 
-export default config
+export default config;
