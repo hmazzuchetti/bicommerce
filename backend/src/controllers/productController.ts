@@ -88,8 +88,14 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
     const totalPages = Math.ceil(total / take);
 
+    // Convert Decimal prices to numbers for JSON serialization
+    const productsWithNumericPrices = products.map(product => ({
+      ...product,
+      price: Number(product.price),
+    }));
+
     res.json({
-      products,
+      products: productsWithNumericPrices,
       pagination: {
         page: Number(page),
         limit: take,
@@ -132,7 +138,13 @@ export const getProductById = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    res.json(product);
+    // Convert Decimal price to number for JSON serialization
+    const productWithNumericPrice = {
+      ...product,
+      price: Number(product.price),
+    };
+
+    res.json(productWithNumericPrice);
   } catch (error) {
     console.error('Error fetching product:', error);
     res.status(500).json({ error: 'Failed to fetch product' });
@@ -178,7 +190,13 @@ export const createProduct = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json(product);
+    // Convert Decimal price to number for JSON serialization
+    const productWithNumericPrice = {
+      ...product,
+      price: Number(product.price),
+    };
+
+    res.status(201).json(productWithNumericPrice);
   } catch (error) {
     console.error('Error creating product:', error);
     res.status(500).json({ error: 'Failed to create product' });
@@ -242,7 +260,13 @@ export const updateProduct = async (req: Request, res: Response) => {
       },
     });
 
-    res.json(product);
+    // Convert Decimal price to number for JSON serialization
+    const productWithNumericPrice = {
+      ...product,
+      price: Number(product.price),
+    };
+
+    res.json(productWithNumericPrice);
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ error: 'Failed to update product' });

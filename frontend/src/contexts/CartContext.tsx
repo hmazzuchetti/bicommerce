@@ -23,7 +23,10 @@ interface CartState {
 type CartAction =
   | { type: 'ADD_ITEM'; payload: { product: Product; quantity?: number } }
   | { type: 'REMOVE_ITEM'; payload: { productId: string } }
-  | { type: 'UPDATE_QUANTITY'; payload: { productId: string; quantity: number } }
+  | {
+      type: 'UPDATE_QUANTITY';
+      payload: { productId: string; quantity: number };
+    }
   | { type: 'CLEAR_CART' }
   | { type: 'TOGGLE_CART' }
   | { type: 'LOAD_CART'; payload: CartItem[] };
@@ -44,67 +47,69 @@ function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case 'ADD_ITEM': {
       const { product, quantity = 1 } = action.payload;
-      const existingItem = state.items.find(item => item.product.id === product.id);
+      const existingItem = state.items.find(
+        (item) => item.product.id === product.id
+      );
 
       if (existingItem) {
         return {
           ...state,
-          items: state.items.map(item =>
+          items: state.items.map((item) =>
             item.product.id === product.id
               ? { ...item, quantity: item.quantity + quantity }
               : item
-          ),
+          )
         };
       }
 
       return {
         ...state,
-        items: [...state.items, { product, quantity }],
+        items: [...state.items, { product, quantity }]
       };
     }
 
     case 'REMOVE_ITEM':
       return {
         ...state,
-        items: state.items.filter(item => item.product.id !== action.payload.productId),
+        items: state.items.filter(
+          (item) => item.product.id !== action.payload.productId
+        )
       };
 
     case 'UPDATE_QUANTITY': {
       const { productId, quantity } = action.payload;
-      
+
       if (quantity <= 0) {
         return {
           ...state,
-          items: state.items.filter(item => item.product.id !== productId),
+          items: state.items.filter((item) => item.product.id !== productId)
         };
       }
 
       return {
         ...state,
-        items: state.items.map(item =>
-          item.product.id === productId
-            ? { ...item, quantity }
-            : item
-        ),
+        items: state.items.map((item) =>
+          item.product.id === productId ? { ...item, quantity } : item
+        )
       };
     }
 
     case 'CLEAR_CART':
       return {
         ...state,
-        items: [],
+        items: []
       };
 
     case 'TOGGLE_CART':
       return {
         ...state,
-        isOpen: !state.isOpen,
+        isOpen: !state.isOpen
       };
 
     case 'LOAD_CART':
       return {
         ...state,
-        items: action.payload,
+        items: action.payload
       };
 
     default:
@@ -115,7 +120,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, {
     items: [],
-    isOpen: false,
+    isOpen: false
   });
 
   // Load cart from localStorage on mount
@@ -161,8 +166,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
   const getTotalPrice = () => {
     return state.items.reduce((total, item) => {
-      const price = typeof item.product.price === 'string' ? parseFloat(item.product.price) : item.product.price;
-      return total + (price * item.quantity);
+      const price =
+        typeof item.product.price === 'string'
+          ? parseFloat(item.product.price)
+          : item.product.price;
+      return total + price * item.quantity;
     }, 0);
   };
 
@@ -174,14 +182,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     clearCart,
     toggleCart,
     getTotalItems,
-    getTotalPrice,
+    getTotalPrice
   };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

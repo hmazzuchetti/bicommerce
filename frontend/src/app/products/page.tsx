@@ -2,11 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Grid3X3, LayoutList, ShoppingCart, Heart, Star } from 'lucide-react';
+import {
+  Search,
+  Filter,
+  Grid3X3,
+  LayoutList,
+  ShoppingCart,
+  Heart,
+  Star
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { useCart } from '@/contexts/CartContext';
@@ -52,20 +66,22 @@ export default function ProductsPage() {
   const [sortOrder, setSortOrder] = useState('desc');
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagination, setPagination] = useState<ProductsResponse['pagination'] | null>(null);
+  const [pagination, setPagination] = useState<
+    ProductsResponse['pagination'] | null
+  >(null);
   const [showFilters, setShowFilters] = useState(false);
 
   // Helper function to safely format price
   const formatPrice = (price: string | number): string => {
-    const numPrice = typeof price === 'string' ? parseFloat(price) : price
-    return isNaN(numPrice) ? '0.00' : numPrice.toFixed(2)
-  }
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+    return isNaN(numPrice) ? '0.00' : numPrice.toFixed(2);
+  };
 
   const categories = [
     { value: 'all', label: 'All Categories' },
     { value: 'crochet', label: 'Crochet' },
     { value: 'pet-portraits', label: 'Pet Portraits' },
-    { value: 'handmade-crafts', label: 'Handmade Crafts' },
+    { value: 'handmade-crafts', label: 'Handmade Crafts' }
   ];
 
   const sortOptions = [
@@ -74,7 +90,7 @@ export default function ProductsPage() {
     { value: 'price:asc', label: 'Price: Low to High' },
     { value: 'price:desc', label: 'Price: High to Low' },
     { value: 'name:asc', label: 'Name: A to Z' },
-    { value: 'name:desc', label: 'Name: Z to A' },
+    { value: 'name:desc', label: 'Name: Z to A' }
   ];
 
   const fetchProducts = async () => {
@@ -88,12 +104,16 @@ export default function ProductsPage() {
         ...(priceRange[0] > 0 && { minPrice: priceRange[0].toString() }),
         ...(priceRange[1] < 100 && { maxPrice: priceRange[1].toString() }),
         sortBy,
-        sortOrder,
+        sortOrder
       });
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/products?${params}`);
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+        }/api/products?${params}`
+      );
       const data: ProductsResponse = await response.json();
-      
+
       setProducts(data.products);
       setPagination(data.pagination);
     } catch (error) {
@@ -105,7 +125,14 @@ export default function ProductsPage() {
 
   useEffect(() => {
     fetchProducts();
-  }, [currentPage, searchTerm, selectedCategory, sortBy, sortOrder, priceRange]);
+  }, [
+    currentPage,
+    searchTerm,
+    selectedCategory,
+    sortBy,
+    sortOrder,
+    priceRange
+  ]);
 
   const handleSortChange = (value: string) => {
     const [field, order] = value.split(':');
@@ -120,7 +147,7 @@ export default function ProductsPage() {
       name: product.name,
       price: product.price,
       images: product.images,
-      slug: product.slug,
+      slug: product.slug
     });
   };
 
@@ -131,7 +158,9 @@ export default function ProductsPage() {
       transition={{ duration: 0.3 }}
       className="group"
     >
-      <Card className="overflow-hidden border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 h-full">        <div className="relative aspect-square overflow-hidden">
+      <Card className="overflow-hidden border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 h-full">
+        {' '}
+        <div className="relative aspect-square overflow-hidden">
           <ImageWithFallback
             src={product.images[0] || '/placeholder.svg'}
             alt={product.name}
@@ -141,7 +170,11 @@ export default function ProductsPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button size="sm" variant="secondary" className="rounded-full w-8 h-8 p-0">
+            <Button
+              size="sm"
+              variant="secondary"
+              className="rounded-full w-8 h-8 p-0"
+            >
               <Heart className="w-4 h-4" />
             </Button>
           </div>
@@ -193,7 +226,9 @@ export default function ProductsPage() {
     >
       <Card className="border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300">
         <CardContent className="p-4">
-          <div className="flex gap-4">            <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+          <div className="flex gap-4">
+            {' '}
+            <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
               <ImageWithFallback
                 src={product.images[0] || '/placeholder.svg'}
                 alt={product.name}
@@ -264,7 +299,8 @@ export default function ProductsPage() {
             Discover Amazing Products
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore our curated collection of handmade treasures and custom creations
+            Explore our curated collection of handmade treasures and custom
+            creations
           </p>
         </motion.div>
 
@@ -288,7 +324,10 @@ export default function ProductsPage() {
             </div>
 
             {/* Category Filter */}
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <Select
+              value={selectedCategory}
+              onValueChange={setSelectedCategory}
+            >
               <SelectTrigger className="w-full lg:w-48 bg-background/50">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
@@ -353,7 +392,9 @@ export default function ProductsPage() {
 
             {pagination && (
               <p className="text-sm text-muted-foreground">
-                Showing {((pagination.page - 1) * pagination.limit) + 1}-{Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} products
+                Showing {(pagination.page - 1) * pagination.limit + 1}-
+                {Math.min(pagination.page * pagination.limit, pagination.total)}{' '}
+                of {pagination.total} products
               </p>
             )}
           </div>
@@ -416,7 +457,9 @@ export default function ProductsPage() {
                 className="text-center py-16"
               >
                 <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-xl font-semibold mb-2">No products found</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  No products found
+                </h3>
                 <p className="text-muted-foreground">
                   Try adjusting your search terms or filters
                 </p>
@@ -441,33 +484,40 @@ export default function ProductsPage() {
             >
               Previous
             </Button>
-            
+
             {[...Array(pagination.totalPages)].map((_, i) => {
               const page = i + 1;
               const isCurrentPage = page === pagination.page;
               const isNearCurrentPage = Math.abs(page - pagination.page) <= 2;
-              const isFirstOrLast = page === 1 || page === pagination.totalPages;
-              
+              const isFirstOrLast =
+                page === 1 || page === pagination.totalPages;
+
               if (!isNearCurrentPage && !isFirstOrLast) {
                 if (page === 2 || page === pagination.totalPages - 1) {
-                  return <span key={page} className="text-muted-foreground">...</span>;
+                  return (
+                    <span key={page} className="text-muted-foreground">
+                      ...
+                    </span>
+                  );
                 }
                 return null;
               }
-              
+
               return (
                 <Button
                   key={page}
                   variant={isCurrentPage ? 'default' : 'outline'}
                   onClick={() => setCurrentPage(page)}
-                  className={isCurrentPage ? 'bg-neon-cyan text-background' : ''}
+                  className={
+                    isCurrentPage ? 'bg-neon-cyan text-background' : ''
+                  }
                   size="sm"
                 >
                   {page}
                 </Button>
               );
             })}
-            
+
             <Button
               variant="outline"
               onClick={() => setCurrentPage(pagination.page + 1)}

@@ -11,14 +11,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CartPage() {
-  const { items, updateQuantity, removeItem, getTotalPrice, getTotalItems } = useCart();
+  const { items, updateQuantity, removeItem, getTotalPrice, getTotalItems } =
+    useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   // Helper function to safely format price
   const formatPrice = (price: string | number): string => {
-    const numPrice = typeof price === 'string' ? parseFloat(price) : price
-    return isNaN(numPrice) ? '0.00' : numPrice.toFixed(2)
-  }
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+    return isNaN(numPrice) ? '0.00' : numPrice.toFixed(2);
+  };
 
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -49,8 +50,8 @@ export default function CartPage() {
               Your Cart is Empty
             </h1>
             <p className="text-muted-foreground mb-8">
-              Looks like you haven't added any amazing products to your cart yet. 
-              Let's change that!
+              Looks like you haven't added any amazing products to your cart
+              yet. Let's change that!
             </p>
             <Link href="/products">
               <Button className="bg-gradient-to-r from-neon-cyan to-neon-blue hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
@@ -73,8 +74,8 @@ export default function CartPage() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <Link 
-            href="/products" 
+          <Link
+            href="/products"
             className="inline-flex items-center text-neon-cyan hover:text-cyan-400 transition-colors mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -84,7 +85,8 @@ export default function CartPage() {
             Shopping Cart
           </h1>
           <p className="text-muted-foreground mt-2">
-            {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'} in your cart
+            {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'} in your
+            cart
           </p>
         </motion.div>
 
@@ -111,14 +113,14 @@ export default function CartPage() {
                             className="object-cover"
                           />
                         </div>
-
                         {/* Product Info */}
                         <div className="flex-1 min-w-0">
-                          <Link 
+                          <Link
                             href={`/products/${item.product.slug}`}
                             className="font-semibold text-lg hover:text-neon-cyan transition-colors block mb-2"
                           >
-                            {item.product.name}                          </Link>
+                            {item.product.name}{' '}
+                          </Link>
                           <p className="text-2xl font-bold text-neon-cyan mb-4">
                             ${formatPrice(item.product.price)}
                           </p>
@@ -129,7 +131,12 @@ export default function CartPage() {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                onClick={() => handleQuantityChange(item.product.id, item.quantity - 1)}
+                                onClick={() =>
+                                  handleQuantityChange(
+                                    item.product.id,
+                                    item.quantity - 1
+                                  )
+                                }
                                 className="h-10 w-10 p-0 hover:bg-destructive/20"
                               >
                                 <Minus className="w-4 h-4" />
@@ -137,14 +144,24 @@ export default function CartPage() {
                               <Input
                                 type="number"
                                 value={item.quantity}
-                                onChange={(e) => handleQuantityChange(item.product.id, parseInt(e.target.value) || 0)}
+                                onChange={(e) =>
+                                  handleQuantityChange(
+                                    item.product.id,
+                                    parseInt(e.target.value) || 0
+                                  )
+                                }
                                 className="h-10 w-16 text-center border-0 bg-transparent [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 min="0"
                               />
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                onClick={() => handleQuantityChange(item.product.id, item.quantity + 1)}
+                                onClick={() =>
+                                  handleQuantityChange(
+                                    item.product.id,
+                                    item.quantity + 1
+                                  )
+                                }
                                 className="h-10 w-10 p-0 hover:bg-neon-cyan/20"
                               >
                                 <Plus className="w-4 h-4" />
@@ -160,10 +177,15 @@ export default function CartPage() {
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
-                        </div>                        {/* Item Total */}
+                        </div>{' '}
+                        {/* Item Total */}
                         <div className="text-right">
                           <p className="font-semibold text-lg">
-                            ${formatPrice(parseFloat(item.product.price.toString()) * item.quantity)}
+                            $
+                            {formatPrice(
+                              parseFloat(item.product.price.toString()) *
+                                item.quantity
+                            )}
                           </p>
                         </div>
                       </div>
@@ -189,7 +211,9 @@ export default function CartPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">                    <div className="flex justify-between">
+                  <div className="space-y-2">
+                    {' '}
+                    <div className="flex justify-between">
                       <span>Subtotal ({getTotalItems()} items)</span>
                       <span>${formatPrice(getTotalPrice())}</span>
                     </div>
@@ -202,10 +226,14 @@ export default function CartPage() {
                       <span>Calculated at checkout</span>
                     </div>
                   </div>
-                  
-                  <div className="border-t border-border pt-4">                    <div className="flex justify-between text-lg font-bold">
+
+                  <div className="border-t border-border pt-4">
+                    {' '}
+                    <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-neon-cyan">${formatPrice(getTotalPrice())}</span>
+                      <span className="text-neon-cyan">
+                        ${formatPrice(getTotalPrice())}
+                      </span>
                     </div>
                   </div>
 
