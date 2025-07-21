@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
@@ -31,66 +33,41 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  
-  body {
-    @apply bg-background text-foreground;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
-    min-height: 100vh;
-  }
-  
   html {
     scroll-behavior: smooth;
   }
-  
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    background-image: radial-gradient(
+        circle at 25% 25%,
+        rgba(0, 255, 255, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 75% 75%,
+        rgba(255, 0, 255, 0.05) 0%,
+        transparent 50%
+      );
+    min-height: 100vh;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: hsl(var(--muted));
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      to bottom,
-      rgb(0, 255, 255),
-      rgb(255, 0, 255)
-    );
+    background: linear-gradient(to bottom, rgb(0, 255, 255), rgb(255, 0, 255));
     border-radius: 4px;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      to bottom,
-      rgb(0, 200, 200),
-      rgb(200, 0, 200)
-    );
+    background: linear-gradient(to bottom, rgb(0, 200, 200), rgb(200, 0, 200));
   }
-}
-
-/* Futuristic animations */
-@keyframes matrix-rain {
-  0% { transform: translateY(-100vh); opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
-}
-
-.matrix-bg::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
-    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-  pointer-events: none;
-  z-index: -1;
 }

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-10-16',
+  apiVersion: '2023-10-16'
 });
 
 // Create payment intent
@@ -28,20 +28,22 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
       where: {
         id: orderId,
         userId: userId,
-        paymentStatus: 'PENDING',
+        paymentStatus: 'PENDING'
       },
       include: {
         orderItems: {
           include: {
-            product: true,
-          },
+            product: true
+          }
         },
-        user: true,
-      },
+        user: true
+      }
     });
 
     if (!order) {
-      return res.status(404).json({ error: 'Order not found or already processed' });
+      return res
+        .status(404)
+        .json({ error: 'Order not found or already processed' });
     }
 
     // Calculate amount in cents
@@ -49,12 +51,15 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
 
     // Create or update payment intent
     let paymentIntent;
-    
+
     if (order.paymentIntentId) {
       // Update existing payment intent
-      paymentIntent = await stripe.paymentIntents.update(order.paymentIntentId, {
-        amount,
-      });
+      paymentIntent = await stripe.paymentIntents.update(
+        order.paymentIntentId,
+        {
+          amount
+        }
+      );
     } else {
       // Create new payment intent
       paymentIntent = await stripe.paymentIntents.create({
@@ -63,10 +68,10 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
         payment_method_types: ['card'],
         metadata: {
           orderId: order.id,
-          userId: order.userId,
+          userId: order.userId
         },
         description: `Order ${order.id} - BiCommerce`,
-        receipt_email: order.user.email,
+        receipt_email: order.user.email
       });
 
       // Update order with payment intent ID
@@ -74,14 +79,14 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
         where: { id: order.id },
         data: {
           paymentIntentId: paymentIntent.id,
-          paymentStatus: 'PROCESSING',
-        },
+          paymentStatus: 'PROCESSING'
+        }
       });
     }
 
     res.json({
       clientSecret: paymentIntent.client_secret,
-      paymentIntentId: paymentIntent.id,
+      paymentIntentId: paymentIntent.id
     });
   } catch (error) {
     console.error('Error creating payment intent:', error);
@@ -106,17 +111,23 @@ export const handleWebhook = async (req: Request, res: Response) => {
   try {
     switch (event.type) {
       case 'payment_intent.succeeded':
-        await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
+        await handlePaymentIntentSucceeded(
+          event.data.object as Stripe.PaymentIntent
+        );
         break;
-      
+
       case 'payment_intent.payment_failed':
-        await handlePaymentIntentFailed(event.data.object as Stripe.PaymentIntent);
+        await handlePaymentIntentFailed(
+          event.data.object as Stripe.PaymentIntent
+        );
         break;
-      
+
       case 'payment_intent.canceled':
-        await handlePaymentIntentCanceled(event.data.object as Stripe.PaymentIntent);
+        await handlePaymentIntentCanceled(
+          event.data.object as Stripe.PaymentIntent
+        );
         break;
-      
+
       default:
         console.log(`Unhandled event type ${event.type}`);
     }
@@ -129,7 +140,9 @@ export const handleWebhook = async (req: Request, res: Response) => {
 };
 
 // Handle successful payment
-const handlePaymentIntentSucceeded = async (paymentIntent: Stripe.PaymentIntent) => {
+const handlePaymentIntentSucceeded = async (
+  paymentIntent: Stripe.PaymentIntent
+) => {
   const orderId = paymentIntent.metadata.orderId;
 
   if (orderId) {
@@ -137,8 +150,8 @@ const handlePaymentIntentSucceeded = async (paymentIntent: Stripe.PaymentIntent)
       where: { id: orderId },
       data: {
         paymentStatus: 'SUCCEEDED',
-        status: 'CONFIRMED',
-      },
+        status: 'CONFIRMED'
+      }
     });
 
     console.log(`Payment succeeded for order ${orderId}`);
@@ -146,7 +159,9 @@ const handlePaymentIntentSucceeded = async (paymentIntent: Stripe.PaymentIntent)
 };
 
 // Handle failed payment
-const handlePaymentIntentFailed = async (paymentIntent: Stripe.PaymentIntent) => {
+const handlePaymentIntentFailed = async (
+  paymentIntent: Stripe.PaymentIntent
+) => {
   const orderId = paymentIntent.metadata.orderId;
 
   if (orderId) {
@@ -154,8 +169,8 @@ const handlePaymentIntentFailed = async (paymentIntent: Stripe.PaymentIntent) =>
     const order = await prisma.order.findUnique({
       where: { id: orderId },
       include: {
-        orderItems: true,
-      },
+        orderItems: true
+      }
     });
 
     if (order) {
@@ -165,9 +180,9 @@ const handlePaymentIntentFailed = async (paymentIntent: Stripe.PaymentIntent) =>
           where: { id: item.productId },
           data: {
             inventory: {
-              increment: item.quantity,
-            },
-          },
+              increment: item.quantity
+            }
+          }
         });
       }
 
@@ -176,8 +191,8 @@ const handlePaymentIntentFailed = async (paymentIntent: Stripe.PaymentIntent) =>
         where: { id: orderId },
         data: {
           paymentStatus: 'FAILED',
-          status: 'CANCELLED',
-        },
+          status: 'CANCELLED'
+        }
       });
     }
 
@@ -186,7 +201,9 @@ const handlePaymentIntentFailed = async (paymentIntent: Stripe.PaymentIntent) =>
 };
 
 // Handle canceled payment
-const handlePaymentIntentCanceled = async (paymentIntent: Stripe.PaymentIntent) => {
+const handlePaymentIntentCanceled = async (
+  paymentIntent: Stripe.PaymentIntent
+) => {
   const orderId = paymentIntent.metadata.orderId;
 
   if (orderId) {
@@ -194,8 +211,8 @@ const handlePaymentIntentCanceled = async (paymentIntent: Stripe.PaymentIntent) 
     const order = await prisma.order.findUnique({
       where: { id: orderId },
       include: {
-        orderItems: true,
-      },
+        orderItems: true
+      }
     });
 
     if (order) {
@@ -205,9 +222,9 @@ const handlePaymentIntentCanceled = async (paymentIntent: Stripe.PaymentIntent) 
           where: { id: item.productId },
           data: {
             inventory: {
-              increment: item.quantity,
-            },
-          },
+              increment: item.quantity
+            }
+          }
         });
       }
 
@@ -216,8 +233,8 @@ const handlePaymentIntentCanceled = async (paymentIntent: Stripe.PaymentIntent) 
         where: { id: orderId },
         data: {
           paymentStatus: 'CANCELLED',
-          status: 'CANCELLED',
-        },
+          status: 'CANCELLED'
+        }
       });
     }
 
@@ -236,7 +253,7 @@ export const createStripeProduct = async (req: Request, res: Response) => {
 
     // Fetch the product from database
     const product = await prisma.product.findUnique({
-      where: { id: productId },
+      where: { id: productId }
     });
 
     if (!product) {
@@ -244,7 +261,9 @@ export const createStripeProduct = async (req: Request, res: Response) => {
     }
 
     if (product.stripeProductId) {
-      return res.status(400).json({ error: 'Product already exists in Stripe' });
+      return res
+        .status(400)
+        .json({ error: 'Product already exists in Stripe' });
     }
 
     // Create product in Stripe
@@ -253,15 +272,15 @@ export const createStripeProduct = async (req: Request, res: Response) => {
       description: product.description || undefined,
       images: product.images,
       metadata: {
-        productId: product.id,
-      },
+        productId: product.id
+      }
     });
 
     // Create price in Stripe
     const stripePrice = await stripe.prices.create({
       unit_amount: Math.round(Number(product.price) * 100),
       currency: 'usd',
-      product: stripeProduct.id,
+      product: stripeProduct.id
     });
 
     // Update product with Stripe IDs
@@ -269,14 +288,14 @@ export const createStripeProduct = async (req: Request, res: Response) => {
       where: { id: productId },
       data: {
         stripeProductId: stripeProduct.id,
-        stripePriceId: stripePrice.id,
-      },
+        stripePriceId: stripePrice.id
+      }
     });
 
     res.json({
       product: updatedProduct,
       stripeProduct,
-      stripePrice,
+      stripePrice
     });
   } catch (error) {
     console.error('Error creating Stripe product:', error);
@@ -291,7 +310,7 @@ export const updateStripeProduct = async (req: Request, res: Response) => {
 
     // Fetch the product from database
     const product = await prisma.product.findUnique({
-      where: { id },
+      where: { id }
     });
 
     if (!product) {
@@ -303,24 +322,27 @@ export const updateStripeProduct = async (req: Request, res: Response) => {
     }
 
     // Update product in Stripe
-    const stripeProduct = await stripe.products.update(product.stripeProductId, {
-      name: product.name,
-      description: product.description || undefined,
-      images: product.images,
-    });
+    const stripeProduct = await stripe.products.update(
+      product.stripeProductId,
+      {
+        name: product.name,
+        description: product.description || undefined,
+        images: product.images
+      }
+    );
 
     // If price changed, create new price and update
     if (req.body.priceChanged) {
       const stripePrice = await stripe.prices.create({
         unit_amount: Math.round(Number(product.price) * 100),
         currency: 'usd',
-        product: product.stripeProductId,
+        product: product.stripeProductId
       });
 
       // Archive old price
       if (product.stripePriceId) {
         await stripe.prices.update(product.stripePriceId, {
-          active: false,
+          active: false
         });
       }
 
@@ -328,8 +350,8 @@ export const updateStripeProduct = async (req: Request, res: Response) => {
       await prisma.product.update({
         where: { id },
         data: {
-          stripePriceId: stripePrice.id,
-        },
+          stripePriceId: stripePrice.id
+        }
       });
     }
 
@@ -347,7 +369,7 @@ export const deleteStripeProduct = async (req: Request, res: Response) => {
 
     // Fetch the product from database
     const product = await prisma.product.findUnique({
-      where: { id },
+      where: { id }
     });
 
     if (!product) {
@@ -360,13 +382,13 @@ export const deleteStripeProduct = async (req: Request, res: Response) => {
 
     // Archive product in Stripe (can't delete products with prices)
     await stripe.products.update(product.stripeProductId, {
-      active: false,
+      active: false
     });
 
     // Archive price in Stripe
     if (product.stripePriceId) {
       await stripe.prices.update(product.stripePriceId, {
-        active: false,
+        active: false
       });
     }
 
@@ -375,8 +397,8 @@ export const deleteStripeProduct = async (req: Request, res: Response) => {
       where: { id },
       data: {
         stripeProductId: null,
-        stripePriceId: null,
-      },
+        stripePriceId: null
+      }
     });
 
     res.json({ message: 'Stripe product archived successfully' });
