@@ -41,6 +41,7 @@ async function main() {
 
   // Create sample products
   const products = await Promise.all([
+    // Crochet Items
     prisma.product.upsert({
       where: { slug: 'rainbow-baby-blanket' },
       update: {},
@@ -60,28 +61,6 @@ async function main() {
           care_instructions: 'Machine wash cold, tumble dry low',
           size: '30x35 inches',
           handmade: true
-        }
-      },
-    }),
-    prisma.product.upsert({
-      where: { slug: 'custom-dog-portrait' },
-      update: {},
-      create: {
-        name: 'Custom Dog Portrait',
-        description: 'Beautiful custom portrait of your beloved dog, hand-drawn with attention to detail. Perfect for dog lovers!',
-        price: 75.00,
-        inventory: 5,
-        slug: 'custom-dog-portrait',
-        categoryId: categories[1].id, // Pet Portraits
-        images: [
-          'https://images.unsplash.com/photo-1551717743-49959800b1f6?w=500',
-          'https://images.unsplash.com/photo-1551717743-49959800b1f6?w=800'
-        ],
-        metadata: {
-          medium: 'Digital art',
-          delivery_format: 'High-resolution digital file',
-          turnaround_time: '7-10 business days',
-          custom_options: ['Size options', 'Background choices', 'Multiple pets']
         }
       },
     }),
@@ -108,6 +87,73 @@ async function main() {
       },
     }),
     prisma.product.upsert({
+      where: { slug: 'cozy-winter-scarf' },
+      update: {},
+      create: {
+        name: 'Cozy Winter Scarf',
+        description: 'Luxurious hand-crocheted scarf in rich burgundy color. Perfect for cold winter days and stylish enough for any occasion.',
+        price: 32.00,
+        inventory: 8,
+        slug: 'cozy-winter-scarf',
+        categoryId: categories[0].id, // Crochet
+        images: [
+          'https://images.unsplash.com/photo-1544966503-7525c4d82e2e?w=500',
+          'https://images.unsplash.com/photo-1544966503-7525c4d82e2e?w=800'
+        ],
+        metadata: {
+          materials: ['Merino wool'],
+          size: '70 inches long, 8 inches wide',
+          colors_available: ['Burgundy', 'Navy', 'Forest Green', 'Charcoal']
+        }
+      },
+    }),
+    prisma.product.upsert({
+      where: { slug: 'granny-square-pillow' },
+      update: {},
+      create: {
+        name: 'Granny Square Pillow Cover',
+        description: 'Vintage-inspired granny square pillow cover that adds bohemian charm to any living space. Removable and washable.',
+        price: 28.75,
+        inventory: 12,
+        slug: 'granny-square-pillow',
+        categoryId: categories[0].id, // Crochet
+        images: [
+          'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500',
+          'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800'
+        ],
+        metadata: {
+          materials: ['Cotton yarn'],
+          size: '18x18 inches',
+          pattern: 'Classic granny square',
+          care_instructions: 'Machine wash gentle, air dry'
+        }
+      },
+    }),
+
+    // Pet Portraits
+    prisma.product.upsert({
+      where: { slug: 'custom-dog-portrait' },
+      update: {},
+      create: {
+        name: 'Custom Dog Portrait',
+        description: 'Beautiful custom portrait of your beloved dog, hand-drawn with attention to detail. Perfect for dog lovers!',
+        price: 75.00,
+        inventory: 5,
+        slug: 'custom-dog-portrait',
+        categoryId: categories[1].id, // Pet Portraits
+        images: [
+          'https://images.unsplash.com/photo-1551717743-49959800b1f6?w=500',
+          'https://images.unsplash.com/photo-1551717743-49959800b1f6?w=800'
+        ],
+        metadata: {
+          medium: 'Digital art',
+          delivery_format: 'High-resolution digital file',
+          turnaround_time: '7-10 business days',
+          custom_options: ['Size options', 'Background choices', 'Multiple pets']
+        }
+      },
+    }),
+    prisma.product.upsert({
       where: { slug: 'cat-portrait-watercolor' },
       update: {},
       create: {
@@ -130,6 +176,31 @@ async function main() {
       },
     }),
     prisma.product.upsert({
+      where: { slug: 'pet-family-portrait' },
+      update: {},
+      create: {
+        name: 'Pet Family Portrait (Multiple Pets)',
+        description: 'Custom family portrait featuring multiple pets. Celebrate your furry family with this heartwarming artwork.',
+        price: 95.00,
+        inventory: 3,
+        slug: 'pet-family-portrait',
+        categoryId: categories[1].id, // Pet Portraits
+        images: [
+          'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500',
+          'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800'
+        ],
+        metadata: {
+          medium: 'Digital art',
+          delivery_format: 'High-resolution digital file + print option',
+          turnaround_time: '10-14 business days',
+          max_pets: '5 pets',
+          custom_options: ['Background scenes', 'Size options', 'Frame styles']
+        }
+      },
+    }),
+
+    // Handmade Crafts
+    prisma.product.upsert({
       where: { slug: 'macrame-wall-hanging' },
       update: {},
       create: {
@@ -148,6 +219,94 @@ async function main() {
           size: '20x30 inches',
           style: 'Bohemian',
           mounting: 'Ready to hang'
+        }
+      },
+    }),
+    prisma.product.upsert({
+      where: { slug: 'ceramic-mug-set' },
+      update: {},
+      create: {
+        name: 'Handcrafted Ceramic Mug Set',
+        description: 'Set of 2 unique ceramic mugs with hand-painted designs. Each mug is one-of-a-kind with slight variations that make them special.',
+        price: 42.00,
+        inventory: 6,
+        slug: 'ceramic-mug-set',
+        categoryId: categories[2].id, // Handmade Crafts
+        images: [
+          'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500',
+          'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800'
+        ],
+        metadata: {
+          materials: ['Ceramic', 'Glazes'],
+          set_contents: '2 mugs (12oz each)',
+          care_instructions: 'Dishwasher safe, microwave safe',
+          style: 'Rustic modern'
+        }
+      },
+    }),
+    prisma.product.upsert({
+      where: { slug: 'wooden-jewelry-box' },
+      update: {},
+      create: {
+        name: 'Handcrafted Wooden Jewelry Box',
+        description: 'Beautiful wooden jewelry box with intricate carvings and multiple compartments. Perfect for organizing precious accessories.',
+        price: 85.00,
+        inventory: 4,
+        slug: 'wooden-jewelry-box',
+        categoryId: categories[2].id, // Handmade Crafts
+        images: [
+          'https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?w=500',
+          'https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?w=800'
+        ],
+        metadata: {
+          materials: ['Oak wood', 'Velvet lining'],
+          dimensions: '8x6x4 inches',
+          compartments: '3 main sections + ring slots',
+          finish: 'Natural wood stain'
+        }
+      },
+    }),
+    prisma.product.upsert({
+      where: { slug: 'embroidery-hoop-art' },
+      update: {},
+      create: {
+        name: 'Custom Embroidery Hoop Art',
+        description: 'Personalized embroidery hoop art with your choice of design. Modern embroidery that makes a perfect wall decoration or gift.',
+        price: 38.50,
+        inventory: 9,
+        slug: 'embroidery-hoop-art',
+        categoryId: categories[2].id, // Handmade Crafts
+        images: [
+          'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=500',
+          'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?w=800'
+        ],
+        metadata: {
+          materials: ['Cotton fabric', 'Embroidery floss', 'Wooden hoop'],
+          hoop_size: '8 inch diameter',
+          custom_options: ['Text customization', 'Color choices', 'Design themes'],
+          turnaround_time: '7-10 business days'
+        }
+      },
+    }),
+    prisma.product.upsert({
+      where: { slug: 'knitted-baby-booties' },
+      update: {},
+      create: {
+        name: 'Soft Knitted Baby Booties',
+        description: 'Adorable hand-knitted baby booties in soft pastel colors. Perfect for newborns and makes a wonderful baby shower gift.',
+        price: 22.00,
+        inventory: 20,
+        slug: 'knitted-baby-booties',
+        categoryId: categories[0].id, // Crochet (knitting is similar)
+        images: [
+          'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500',
+          'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800'
+        ],
+        metadata: {
+          materials: ['Baby yarn (hypoallergenic)'],
+          sizes: ['0-3 months', '3-6 months', '6-12 months'],
+          colors_available: ['Pink', 'Blue', 'Yellow', 'White', 'Mint Green'],
+          care_instructions: 'Hand wash only, air dry'
         }
       },
     }),
