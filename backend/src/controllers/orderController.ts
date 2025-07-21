@@ -213,6 +213,16 @@ export const createOrder = async (req: Request, res: Response) => {
       },
     });
 
+    // Convert Decimal values to numbers for JSON serialization
+    const orderWithNumericValues = {
+      ...order,
+      total: Number(order.total),
+      orderItems: order.orderItems.map(item => ({
+        ...item,
+        price: Number(item.price),
+      })),
+    };
+
     // Update product inventory
     for (const item of items) {
       await prisma.product.update({
@@ -225,7 +235,7 @@ export const createOrder = async (req: Request, res: Response) => {
       });
     }
 
-    res.status(201).json(order);
+    res.status(201).json(orderWithNumericValues);
   } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).json({ error: 'Failed to create order' });

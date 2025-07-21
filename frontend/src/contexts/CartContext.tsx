@@ -124,7 +124,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     if (savedCart) {
       try {
         const cartItems = JSON.parse(savedCart);
-        dispatch({ type: 'LOAD_CART', payload: cartItems });
+        // Ensure all prices are numbers when loading from localStorage
+        const cartItemsWithNumericPrices = cartItems.map((item: CartItem) => ({
+          ...item,
+          product: {
+            ...item.product,
+            price: typeof item.product.price === 'string' ? parseFloat(item.product.price) : item.product.price
+          }
+        }));
+        dispatch({ type: 'LOAD_CART', payload: cartItemsWithNumericPrices });
       } catch (error) {
         console.error('Error loading cart from localStorage:', error);
       }
@@ -137,7 +145,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state.items]);
 
   const addItem = (product: Product, quantity = 1) => {
-    dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
+    // Ensure price is a number
+    const productWithNumericPrice = {
+      ...product,
+      price: typeof product.price === 'string' ? parseFloat(product.price) : product.price
+    };
+    dispatch({ type: 'ADD_ITEM', payload: { product: productWithNumericPrice, quantity } });
   };
 
   const removeItem = (productId: string) => {

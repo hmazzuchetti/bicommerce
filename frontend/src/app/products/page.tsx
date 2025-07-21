@@ -88,7 +88,13 @@ export default function ProductsPage() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/products?${params}`);
       const data: ProductsResponse = await response.json();
       
-      setProducts(data.products);
+      // Convert price strings to numbers
+      const productsWithNumericPrices = data.products.map(product => ({
+        ...product,
+        price: typeof product.price === 'string' ? parseFloat(product.price) : product.price
+      }));
+      
+      setProducts(productsWithNumericPrices);
       setPagination(data.pagination);
     } catch (error) {
       console.error('Error fetching products:', error);
