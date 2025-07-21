@@ -16,40 +16,7 @@ export default function Home() {
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
 
   return (
-    <div ref={ref} className="min-h-screen bg-background text-foreground overflow-hidden">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold font-[family-name:var(--font-orbitron)] text-neon-cyan">
-            BiCommerce
-          </Link>
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/products" className="hover:text-neon-cyan transition-colors">
-              Products
-            </Link>
-            <Link href="/categories" className="hover:text-neon-cyan transition-colors">
-              Categories
-            </Link>
-            <Link href="/about" className="hover:text-neon-cyan transition-colors">
-              About
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link href="/cart" className="relative p-2 hover:text-neon-cyan transition-colors">
-                <ShoppingBag size={20} />
-                <span className="absolute -top-1 -right-1 bg-neon-pink text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  0
-                </span>
-              </Link>
-              <Link 
-                href="/auth/signin" 
-                className="px-4 py-2 bg-neon-cyan text-background rounded-lg hover:bg-cyan-400 transition-colors"
-              >
-                Sign In
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div ref={ref} className="min-h-screen bg-background text-foreground overflow-hidden">{/* Navigation is now global in layout.tsx */}
 
       {/* Hero Section with Parallax */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
