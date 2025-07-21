@@ -14,6 +14,12 @@ export default function CartPage() {
   const { items, updateQuantity, removeItem, getTotalPrice, getTotalItems } = useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
+  // Helper function to safely format price
+  const formatPrice = (price: string | number): string => {
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price
+    return isNaN(numPrice) ? '0.00' : numPrice.toFixed(2)
+  }
+
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
       removeItem(productId);
@@ -112,10 +118,9 @@ export default function CartPage() {
                             href={`/products/${item.product.slug}`}
                             className="font-semibold text-lg hover:text-neon-cyan transition-colors block mb-2"
                           >
-                            {item.product.name}
-                          </Link>
+                            {item.product.name}                          </Link>
                           <p className="text-2xl font-bold text-neon-cyan mb-4">
-                            ${item.product.price.toFixed(2)}
+                            ${formatPrice(item.product.price)}
                           </p>
 
                           {/* Quantity Controls */}
@@ -155,12 +160,10 @@ export default function CartPage() {
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
-                        </div>
-
-                        {/* Item Total */}
+                        </div>                        {/* Item Total */}
                         <div className="text-right">
                           <p className="font-semibold text-lg">
-                            ${(item.product.price * item.quantity).toFixed(2)}
+                            ${formatPrice(parseFloat(item.product.price.toString()) * item.quantity)}
                           </p>
                         </div>
                       </div>
@@ -186,10 +189,9 @@ export default function CartPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
+                  <div className="space-y-2">                    <div className="flex justify-between">
                       <span>Subtotal ({getTotalItems()} items)</span>
-                      <span>${getTotalPrice().toFixed(2)}</span>
+                      <span>${formatPrice(getTotalPrice())}</span>
                     </div>
                     <div className="flex justify-between text-sm text-muted-foreground">
                       <span>Shipping</span>
@@ -201,10 +203,9 @@ export default function CartPage() {
                     </div>
                   </div>
                   
-                  <div className="border-t border-border pt-4">
-                    <div className="flex justify-between text-lg font-bold">
+                  <div className="border-t border-border pt-4">                    <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-neon-cyan">${getTotalPrice().toFixed(2)}</span>
+                      <span className="text-neon-cyan">${formatPrice(getTotalPrice())}</span>
                     </div>
                   </div>
 

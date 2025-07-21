@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { useCart } from '@/contexts/CartContext';
-import Image from 'next/image';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import Link from 'next/link';
 
 interface Product {
@@ -54,6 +54,12 @@ export default function ProductsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState<ProductsResponse['pagination'] | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+
+  // Helper function to safely format price
+  const formatPrice = (price: string | number): string => {
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price
+    return isNaN(numPrice) ? '0.00' : numPrice.toFixed(2)
+  }
 
   const categories = [
     { value: 'all', label: 'All Categories' },
@@ -125,13 +131,13 @@ export default function ProductsPage() {
       transition={{ duration: 0.3 }}
       className="group"
     >
-      <Card className="overflow-hidden border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 h-full">
-        <div className="relative aspect-square overflow-hidden">
-          <Image
-            src={product.images[0] || '/placeholder.jpg'}
+      <Card className="overflow-hidden border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 h-full">        <div className="relative aspect-square overflow-hidden">
+          <ImageWithFallback
+            src={product.images[0] || '/placeholder.svg'}
             alt={product.name}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
+            fallbackSrc="/placeholder.svg"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -157,7 +163,7 @@ export default function ProductsPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold text-neon-cyan">
-                ${product.price.toFixed(2)}
+                ${formatPrice(product.price)}
               </span>
               {product.inventory < 5 && (
                 <Badge variant="destructive" className="text-xs">
@@ -187,13 +193,13 @@ export default function ProductsPage() {
     >
       <Card className="border-border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300">
         <CardContent className="p-4">
-          <div className="flex gap-4">
-            <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
-              <Image
-                src={product.images[0] || '/placeholder.jpg'}
+          <div className="flex gap-4">            <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
+              <ImageWithFallback
+                src={product.images[0] || '/placeholder.svg'}
                 alt={product.name}
                 fill
                 className="object-cover"
+                fallbackSrc="/placeholder.svg"
               />
             </div>
             <div className="flex-1 min-w-0">
@@ -215,7 +221,7 @@ export default function ProductsPage() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-xl font-bold text-neon-cyan">
-                    ${product.price.toFixed(2)}
+                    ${formatPrice(product.price)}
                   </span>
                   {product.inventory < 5 && (
                     <Badge variant="destructive" className="text-xs">
