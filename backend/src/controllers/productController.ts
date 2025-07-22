@@ -151,6 +151,46 @@ export const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+// Get product by slug
+export const getProductBySlug = async (req: Request, res: Response) => {
+  try {
+    const { slug } = req.params;
+
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+          },
+        },
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // If product is inactive, only show to admins
+    if (!product.isActive && req.user?.role !== 'ADMIN') {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Convert Decimal price to number for JSON serialization
+    const productWithNumericPrice = {
+      ...product,
+      price: Number(product.price),
+    };
+
+    res.json(productWithNumericPrice);
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    res.status(500).json({ error: 'Failed to fetch product' });
+  }
+};
+
 // Create new product (admin only)
 export const createProduct = async (req: Request, res: Response) => {
   try {

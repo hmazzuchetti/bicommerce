@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "title": "BiCommerce - Creative Handmade Products",
+    "description": "Discover unique handmade crochet items, custom pet portraits, and creative crafts. Futuristic shopping experience for creative souls.",
+    "keywords": ["handmade", "crochet", "pet portraits", "custom art", "creative", "ecommerce"],
+    "author": "BiCommerce Team",
+    "siteName": "BiCommerce"
+  },
+  "navigation": {
+    "products": "Products",
+    "categories": "Categories",
+    "about": "About",
+    "cart": "Cart",
+    "account": "Account",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "hi": "Hi, ",
+    "logo": "BiCommerce"
+  },
+  "homepage": {
+    "hero": {
+      "title1": "Creative",
+      "title2": "Commerce",
+      "title3": "Reimagined",
+      "subtitle": "Discover unique handmade treasures in our futuristic marketplace. From cozy crochet blankets to stunning pet portraits.",
+      "exploreProducts": "Explore Products",
+      "customOrders": "Custom Orders"
+    },
+    "features": {
+      "title": "Why Choose BiCommerce?",
+      "subtitle": "Experience the future of handmade commerce with our cutting-edge platform",
+      "quality": {
+        "title": "Handcrafted Quality",
+        "description": "Every item is lovingly created by skilled artisans with attention to detail"
+      },
+      "custom": {
+        "title": "Custom Creations",
+        "description": "Commission unique pieces tailored specifically to your vision"
+      },
+      "secure": {
+        "title": "Secure Checkout",
+        "description": "Lightning-fast payments with Stripe integration and Brazilian Pix support"
+      }
+    },
+    "footer": {
+      "description": "The future of creative commerce, where artisans and customers connect in a digital wonderland.",
+      "shop": "Shop",
+      "allProducts": "All Products",
+      "crochet": "Crochet",
+      "petPortraits": "Pet Portraits",
+      "handmadeCrafts": "Handmade Crafts",
+      "support": "Support",
+      "contactUs": "Contact Us",
+      "faq": "FAQ",
+      "shippingInfo": "Shipping Info",
+      "returns": "Returns",
+      "connect": "Connect",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "pinterest": "Pinterest",
+      "copyright": "© 2024 BiCommerce. All rights reserved. Made with ❤️ for creative souls."
+    }
+  },
+  "products": {
+    "title": "Discover Amazing Products",
+    "subtitle": "Explore our curated collection of handmade treasures and custom creations",
+    "searchPlaceholder": "Search products...",
+    "filters": {
+      "category": "Category",
+      "sortBy": "Sort by",
+      "allCategories": "All Categories",
+      "crochet": "Crochet",
+      "petPortraits": "Pet Portraits",
+      "handmadeCrafts": "Handmade Crafts",
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "priceLowHigh": "Price: Low to High",
+      "priceHighLow": "Price: High to Low",
+      "nameAZ": "Name: A to Z",
+      "nameZA": "Name: Z to A",
+      "priceRange": "Price Range: ${min} - ${max}",
+      "showFilters": "Show Filters",
+      "hideFilters": "Hide Filters"
+    },
+    "results": {
+      "showing": "Showing {start}-{end} of {total} products",
+      "noResults": "No products found",
+      "noResultsHelp": "Try adjusting your search terms or filters"
+    },
+    "product": {
+      "addToCart": "Add to Cart",
+      "onlyLeft": "Only {count} left",
+      "quantity": "Quantity:",
+      "inStock": "{count} in stock",
+      "details": "Product Details",
+      "sku": "SKU:",
+      "stock": "Stock:",
+      "stockItems": "{count} items",
+      "category": "Category:",
+      "uncategorized": "Uncategorized",
+      "status": "Status:",
+      "active": "Active",
+      "inactive": "Inactive",
+      "relatedProducts": "Related Products",
+      "notFound": "Product not found",
+      "backToProducts": "Back to Products",
+      "loading": "Loading product..."
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": {
+      "title": "Your Cart is Empty",
+      "message": "Looks like you haven't added any amazing products to your cart yet. Let's change that!",
+      "continueShopping": "Continue Shopping"
+    },
+    "summary": "{count} {count, plural, one {item} other {items}} in your cart",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal ({count} items)",
+    "shipping": "Shipping",
+    "shippingCalculated": "Calculated at checkout",
+    "tax": "Tax",
+    "taxCalculated": "Calculated at checkout",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to Checkout",
+    "processing": "Processing...",
+    "secureCheckout": "Secure checkout powered by Stripe",
+    "continueShopping": "Continue Shopping"
+  },
+  "auth": {
+    "signin": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your BiCommerce account",
+      "googleButton": "Continue with Google",
+      "facebookButton": "Continue with Facebook",
+      "orContinue": "Or continue with",
+      "emailPlaceholder": "Enter your email",
+      "signInButton": "Sign in with Email",
+      "noAccount": "Don't have an account? ",
+      "signUpLink": "Sign up"
+    },
+    "signup": {
+      "title": "Join BiCommerce",
+      "subtitle": "Create your account to start shopping",
+      "googleButton": "Sign up with Google",
+      "facebookButton": "Sign up with Facebook",
+      "orSignUp": "Or sign up with",
+      "namePlaceholder": "Full name",
+      "emailPlaceholder": "Email address",
+      "createAccount": "Create Account",
+      "haveAccount": "Already have an account? ",
+      "signInLink": "Sign in",
+      "termsText": "By creating an account, you agree to our ",
+      "termsLink": "Terms of Service",
+      "and": " and ",
+      "privacyLink": "Privacy Policy"
+    }
+  },
+  "checkout": {
+    "title": "Checkout",
+    "backToCart": "Back to Cart",
+    "empty": {
+      "title": "Cart is Empty",
+      "message": "You need items in your cart to proceed with checkout.",
+      "shopNow": "Shop Now"
+    },
+    "success": {
+      "title": "Order Confirmed!",
+      "message": "Thank you for your purchase! Your order has been successfully placed.",
+      "orderIdLabel": "Order ID:",
+      "emailLabel": "Email:",
+      "totalLabel": "Total:",
+      "statusLabel": "Status:",
+      "statusConfirmed": "Confirmed",
+      "confirmationText": "We've sent a confirmation email to ",
+      "continueShopping": "Continue Shopping",
+      "viewOrders": "View Orders"
+    },
+    "shipping": "Shipping Information",
+    "form": {
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "John",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Doe",
+      "address": "Address",
+      "addressPlaceholder": "123 Main Street",
+      "city": "City",
+      "cityPlaceholder": "New York",
+      "state": "State",
+      "statePlaceholder": "NY",
+      "zipCode": "Zip Code",
+      "zipPlaceholder": "10001",
+      "country": "Country",
+      "countryPlaceholder": "United States"
+    },
+    "completeOrder": "Complete Order",
+    "processing": "Processing...",
+    "securityNotice": "Your payment information is secure and encrypted",
+    "orderSummary": "Order Summary",
+    "quantity": "Qty: {quantity}",
+    "subtotal": "Subtotal ({count} items)",
+    "shipping": "Shipping",
+    "freeShipping": "Free",
+    "tax": "Tax",
+    "total": "Total",
+    "errors": {
+      "createOrderFailed": "Failed to create order",
+      "paymentFailed": "Failed to create payment intent",
+      "processingError": "There was an error processing your order. Please try again."
+    }
+  },
+  "validation": {
+    "emailInvalid": "Please enter a valid email address",
+    "firstNameShort": "First name must be at least 2 characters",
+    "lastNameShort": "Last name must be at least 2 characters",
+    "addressInvalid": "Please enter a valid address",
+    "cityInvalid": "Please enter a valid city",
+    "stateInvalid": "Please enter a valid state",
+    "zipInvalid": "Please enter a valid zip code",
+    "countryInvalid": "Please enter a valid country"
+  },
+  "categories": {
+    "title": "Product Categories",
+    "subtitle": "Explore our curated collections of handmade treasures",
+    "loading": "Loading categories...",
+    "noCategories": "No categories found",
+    "productCount": "{count} products",
+    "fallbackDescription": "Explore our collection",
+    "demo": {
+      "crochet": {
+        "name": "Crochet Items",
+        "description": "Handmade crochet accessories and clothing"
+      },
+      "petPortraits": {
+        "name": "Pet Portraits",
+        "description": "Custom pet portraits and artwork"
+      },
+      "homeDecor": {
+        "name": "Home Decor",
+        "description": "Unique decorative pieces for your space"
+      },
+      "jewelry": {
+        "name": "Jewelry",
+        "description": "Handcrafted jewelry and accessories"
+      },
+      "artPrints": {
+        "name": "Art Prints",
+        "description": "Original artwork and prints"
+      },
+      "customOrders": {
+        "name": "Custom Orders",
+        "description": "Personalized items made to order"
+      }
+    }
+  },
+  "categoryDetail": {
+    "productsFound": "{count} products found",
+    "filters": {
+      "priceRange": "Price Range",
+      "sortBy": "Sort By",
+      "nameAZ": "Name A-Z",
+      "priceLowHigh": "Price Low-High",
+      "priceHighLow": "Price High-Low"
+    },
+    "noResults": "No products found matching your criteria",
+    "addToCart": "Add to Cart",
+    "loading": "Loading products..."
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "products": "Products"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "context": {
+    "cartError": "useCart must be used within a CartProvider"
+  }
+}

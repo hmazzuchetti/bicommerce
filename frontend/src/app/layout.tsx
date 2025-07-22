@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Orbitron } from "next/font/google";
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
 import Navigation from "@/components/Navigation";
@@ -33,13 +35,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className="dark">
+    <html lang={locale} className="dark">
       <head>
         <script
           async
@@ -59,12 +64,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${orbitron.variable} antialiased matrix-bg`}
       >
-        <AuthSessionProvider>
-          <CartProvider>
-            <Navigation />
-            {children}
-          </CartProvider>
-        </AuthSessionProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AuthSessionProvider>
+            <CartProvider>
+              <Navigation />
+              {children}
+            </CartProvider>
+          </AuthSessionProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

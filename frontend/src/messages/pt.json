@@ -1,0 +1,294 @@
+{
+  "metadata": {
+    "title": "BiCommerce - Produtos Artesanais Criativos",
+    "description": "Descubra itens únicos feitos à mão, retratos personalizados de pets e artesanatos criativos. Experiência de compras futurística para almas criativas.",
+    "keywords": ["artesanal", "crochê", "retratos de pets", "arte personalizada", "criativo", "ecommerce"],
+    "author": "Equipe BiCommerce",
+    "siteName": "BiCommerce"
+  },
+  "navigation": {
+    "products": "Produtos",
+    "categories": "Categorias",
+    "about": "Sobre",
+    "cart": "Carrinho",
+    "account": "Conta",
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "hi": "Olá, ",
+    "logo": "BiCommerce"
+  },
+  "homepage": {
+    "hero": {
+      "title1": "Comércio",
+      "title2": "Criativo",
+      "title3": "Reimaginado",
+      "subtitle": "Descubra tesouros únicos feitos à mão em nosso mercado futurístico. Desde mantas de crochê aconchegantes até retratos impressionantes de pets.",
+      "exploreProducts": "Explorar Produtos",
+      "customOrders": "Pedidos Personalizados"
+    },
+    "features": {
+      "title": "Por que Escolher BiCommerce?",
+      "subtitle": "Experimente o futuro do comércio artesanal com nossa plataforma de ponta",
+      "quality": {
+        "title": "Qualidade Artesanal",
+        "description": "Cada item é criado com amor por artesãos habilidosos com atenção aos detalhes"
+      },
+      "custom": {
+        "title": "Criações Personalizadas",
+        "description": "Encomende peças únicas feitas especialmente para sua visão"
+      },
+      "secure": {
+        "title": "Checkout Seguro",
+        "description": "Pagamentos super rápidos com integração Stripe e suporte ao Pix brasileiro"
+      }
+    },
+    "footer": {
+      "description": "O futuro do comércio criativo, onde artesãos e clientes se conectam em um mundo digital maravilhoso.",
+      "shop": "Loja",
+      "allProducts": "Todos os Produtos",
+      "crochet": "Crochê",
+      "petPortraits": "Retratos de Pets",
+      "handmadeCrafts": "Artesanatos",
+      "support": "Suporte",
+      "contactUs": "Fale Conosco",
+      "faq": "FAQ",
+      "shippingInfo": "Info de Entrega",
+      "returns": "Devoluções",
+      "connect": "Conectar",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "pinterest": "Pinterest",
+      "copyright": "© 2024 BiCommerce. Todos os direitos reservados. Feito com ❤️ para almas criativas."
+    }
+  },
+  "products": {
+    "title": "Descubra Produtos Incríveis",
+    "subtitle": "Explore nossa coleção curada de tesouros artesanais e criações personalizadas",
+    "searchPlaceholder": "Buscar produtos...",
+    "filters": {
+      "category": "Categoria",
+      "sortBy": "Ordenar por",
+      "allCategories": "Todas as Categorias",
+      "crochet": "Crochê",
+      "petPortraits": "Retratos de Pets",
+      "handmadeCrafts": "Artesanatos",
+      "newest": "Mais Recentes",
+      "oldest": "Mais Antigos",
+      "priceLowHigh": "Preço: Menor para Maior",
+      "priceHighLow": "Preço: Maior para Menor",
+      "nameAZ": "Nome: A a Z",
+      "nameZA": "Nome: Z a A",
+      "priceRange": "Faixa de Preço: R${min} - R${max}",
+      "showFilters": "Mostrar Filtros",
+      "hideFilters": "Ocultar Filtros"
+    },
+    "results": {
+      "showing": "Mostrando {start}-{end} de {total} produtos",
+      "noResults": "Nenhum produto encontrado",
+      "noResultsHelp": "Tente ajustar seus termos de busca ou filtros"
+    },
+    "product": {
+      "addToCart": "Adicionar ao Carrinho",
+      "onlyLeft": "Apenas {count} restante",
+      "quantity": "Quantidade:",
+      "inStock": "{count} em estoque",
+      "details": "Detalhes do Produto",
+      "sku": "SKU:",
+      "stock": "Estoque:",
+      "stockItems": "{count} itens",
+      "category": "Categoria:",
+      "uncategorized": "Sem categoria",
+      "status": "Status:",
+      "active": "Ativo",
+      "inactive": "Inativo",
+      "relatedProducts": "Produtos Relacionados",
+      "notFound": "Produto não encontrado",
+      "backToProducts": "Voltar aos Produtos",
+      "loading": "Carregando produto..."
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Próximo"
+    }
+  },
+  "cart": {
+    "title": "Carrinho de Compras",
+    "empty": {
+      "title": "Seu Carrinho Está Vazio",
+      "message": "Parece que você ainda não adicionou nenhum produto incrível ao seu carrinho. Vamos mudar isso!",
+      "continueShopping": "Continuar Comprando"
+    },
+    "summary": "{count} {count, plural, one {item} other {itens}} no seu carrinho",
+    "orderSummary": "Resumo do Pedido",
+    "subtotal": "Subtotal ({count} itens)",
+    "shipping": "Entrega",
+    "shippingCalculated": "Calculado no checkout",
+    "tax": "Impostos",
+    "taxCalculated": "Calculado no checkout",
+    "total": "Total",
+    "proceedToCheckout": "Finalizar Compra",
+    "processing": "Processando...",
+    "secureCheckout": "Checkout seguro com Stripe",
+    "continueShopping": "Continuar Comprando"
+  },
+  "auth": {
+    "signin": {
+      "title": "Bem-vindo de Volta",
+      "subtitle": "Entre na sua conta BiCommerce",
+      "googleButton": "Continuar com Google",
+      "facebookButton": "Continuar com Facebook",
+      "orContinue": "Ou continue com",
+      "emailPlaceholder": "Digite seu e-mail",
+      "signInButton": "Entrar com E-mail",
+      "noAccount": "Não tem conta? ",
+      "signUpLink": "Cadastre-se"
+    },
+    "signup": {
+      "title": "Junte-se ao BiCommerce",
+      "subtitle": "Crie sua conta para começar a comprar",
+      "googleButton": "Cadastrar com Google",
+      "facebookButton": "Cadastrar com Facebook",
+      "orSignUp": "Ou cadastre-se com",
+      "namePlaceholder": "Nome completo",
+      "emailPlaceholder": "Endereço de e-mail",
+      "createAccount": "Criar Conta",
+      "haveAccount": "Já tem uma conta? ",
+      "signInLink": "Entrar",
+      "termsText": "Ao criar uma conta, você concorda com nossos ",
+      "termsLink": "Termos de Serviço",
+      "and": " e ",
+      "privacyLink": "Política de Privacidade"
+    }
+  },
+  "checkout": {
+    "title": "Finalizar Compra",
+    "backToCart": "Voltar ao Carrinho",
+    "empty": {
+      "title": "Carrinho Vazio",
+      "message": "Você precisa de itens no seu carrinho para finalizar a compra.",
+      "shopNow": "Comprar Agora"
+    },
+    "success": {
+      "title": "Pedido Confirmado!",
+      "message": "Obrigado pela sua compra! Seu pedido foi realizado com sucesso.",
+      "orderIdLabel": "ID do Pedido:",
+      "emailLabel": "E-mail:",
+      "totalLabel": "Total:",
+      "statusLabel": "Status:",
+      "statusConfirmed": "Confirmado",
+      "confirmationText": "Enviamos um e-mail de confirmação para ",
+      "continueShopping": "Continuar Comprando",
+      "viewOrders": "Ver Pedidos"
+    },
+    "shipping": "Informações de Entrega",
+    "form": {
+      "email": "Endereço de E-mail",
+      "emailPlaceholder": "seu@email.com",
+      "firstName": "Nome",
+      "firstNamePlaceholder": "João",
+      "lastName": "Sobrenome",
+      "lastNamePlaceholder": "Silva",
+      "address": "Endereço",
+      "addressPlaceholder": "Rua das Flores, 123",
+      "city": "Cidade",
+      "cityPlaceholder": "São Paulo",
+      "state": "Estado",
+      "statePlaceholder": "SP",
+      "zipCode": "CEP",
+      "zipPlaceholder": "01234-567",
+      "country": "País",
+      "countryPlaceholder": "Brasil"
+    },
+    "completeOrder": "Finalizar Pedido",
+    "processing": "Processando...",
+    "securityNotice": "Suas informações de pagamento são seguras e criptografadas",
+    "orderSummary": "Resumo do Pedido",
+    "quantity": "Qtd: {quantity}",
+    "subtotal": "Subtotal ({count} itens)",
+    "shipping": "Entrega",
+    "freeShipping": "Grátis",
+    "tax": "Impostos",
+    "total": "Total",
+    "errors": {
+      "createOrderFailed": "Falha ao criar pedido",
+      "paymentFailed": "Falha ao criar intenção de pagamento",
+      "processingError": "Houve um erro ao processar seu pedido. Tente novamente."
+    }
+  },
+  "validation": {
+    "emailInvalid": "Por favor, insira um endereço de e-mail válido",
+    "firstNameShort": "O nome deve ter pelo menos 2 caracteres",
+    "lastNameShort": "O sobrenome deve ter pelo menos 2 caracteres",
+    "addressInvalid": "Por favor, insira um endereço válido",
+    "cityInvalid": "Por favor, insira uma cidade válida",
+    "stateInvalid": "Por favor, insira um estado válido",
+    "zipInvalid": "Por favor, insira um CEP válido",
+    "countryInvalid": "Por favor, insira um país válido"
+  },
+  "categories": {
+    "title": "Categorias de Produtos",
+    "subtitle": "Explore nossas coleções curadas de tesouros artesanais",
+    "loading": "Carregando categorias...",
+    "noCategories": "Nenhuma categoria encontrada",
+    "productCount": "{count} produtos",
+    "fallbackDescription": "Explore nossa coleção",
+    "demo": {
+      "crochet": {
+        "name": "Itens de Crochê",
+        "description": "Acessórios e roupas de crochê feitos à mão"
+      },
+      "petPortraits": {
+        "name": "Retratos de Pets",
+        "description": "Retratos personalizados de pets e obras de arte"
+      },
+      "homeDecor": {
+        "name": "Decoração de Casa",
+        "description": "Peças decorativas únicas para seu espaço"
+      },
+      "jewelry": {
+        "name": "Joias",
+        "description": "Joias e acessórios artesanais"
+      },
+      "artPrints": {
+        "name": "Gravuras de Arte",
+        "description": "Obras de arte originais e impressões"
+      },
+      "customOrders": {
+        "name": "Pedidos Personalizados",
+        "description": "Itens personalizados feitos sob encomenda"
+      }
+    }
+  },
+  "categoryDetail": {
+    "productsFound": "{count} produtos encontrados",
+    "filters": {
+      "priceRange": "Faixa de Preço",
+      "sortBy": "Ordenar Por",
+      "nameAZ": "Nome A-Z",
+      "priceLowHigh": "Preço Menor-Maior",
+      "priceHighLow": "Preço Maior-Menor"
+    },
+    "noResults": "Nenhum produto encontrado com seus critérios",
+    "addToCart": "Adicionar ao Carrinho",
+    "loading": "Carregando produtos..."
+  },
+  "breadcrumb": {
+    "home": "Início",
+    "products": "Produtos"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "retry": "Tentar Novamente",
+    "close": "Fechar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "context": {
+    "cartError": "useCart deve ser usado dentro de um CartProvider"
+  }
+}
