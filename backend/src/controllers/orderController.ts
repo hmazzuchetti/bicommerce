@@ -20,6 +20,8 @@ const createOrderSchema = Joi.object({
     zipCode: Joi.string().required(),
     country: Joi.string().required(),
   }).required(),
+  customerEmail: Joi.string().email().required(),
+  userId: Joi.string().optional(),
 });
 
 // Get user's orders
@@ -135,18 +137,13 @@ export const getOrderById = async (req: Request, res: Response) => {
 // Create new order
 export const createOrder = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id;
     const { error, value } = createOrderSchema.validate(req.body);
-
-    if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
 
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
 
-    const { items, shippingAddress } = value;
+    const { items, shippingAddress, customerEmail, userId } = value;
 
     // Fetch products and validate availability
     const productIds = items.map((item: any) => item.productId);
@@ -188,15 +185,24 @@ export const createOrder = async (req: Request, res: Response) => {
     }
 
     // Create order with items
-    const order = await prisma.order.create({
-      data: {
-        userId,
-        total,
-        shippingAddress,
-        orderItems: {
-          create: orderItemsData,
-        },
+    const orderData: any = {
+      total,
+      shippingAddress: {
+        ...shippingAddress,
+        email: customerEmail,
       },
+      orderItems: {
+        create: orderItemsData,
+      },
+    };
+
+    // Only add userId if provided (for authenticated users)
+    if (userId) {
+      orderData.userId = userId;
+    }
+
+    const order = await prisma.order.create({
+      data: orderData,
       include: {
         orderItems: {
           include: {

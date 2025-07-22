@@ -2,16 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingCart, User, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Navigation() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items, getTotalItems } = useCart();
+  const { data: session, status } = useSession();
 
   const navItems = [
     { href: '/products', label: 'Products' },
@@ -55,15 +57,42 @@ export default function Navigation() {
                 </Badge>
               )}
             </Link>
-            <Link href="/account" className="p-2 hover:text-neon-cyan transition-colors">
-              <User size={20} />
-            </Link>
-            <Link 
-              href="/auth/signin" 
-              className="px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-blue text-background rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
-            >
-              Sign In
-            </Link>
+            
+            {session ? (
+              <>
+                <Link href="/account" className="p-2 hover:text-neon-cyan transition-colors">
+                  <User size={20} />
+                </Link>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-300">
+                    Hi, {session.user?.name?.split(' ')[0] || session.user?.email}
+                  </span>
+                  <Button
+                    onClick={() => signOut()}
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 hover:text-neon-cyan transition-colors"
+                  >
+                    <LogOut size={16} />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/auth/signin" 
+                  className="px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-blue text-background rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
+                >
+                  Sign In
+                </Link>
+                <Link 
+                  href="/auth/signup" 
+                  className="px-4 py-2 border border-neon-cyan text-neon-cyan rounded-lg hover:bg-neon-cyan hover:text-background transition-all duration-300"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -102,22 +131,55 @@ export default function Navigation() {
                   <ShoppingCart size={20} />
                   <span>Cart ({getTotalItems()})</span>
                 </Link>
-                <Link 
-                  href="/account" 
-                  className="flex items-center space-x-2 hover:text-neon-cyan transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <User size={20} />
-                  <span>Account</span>
-                </Link>
+                {session && (
+                  <Link 
+                    href="/account" 
+                    className="flex items-center space-x-2 hover:text-neon-cyan transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={20} />
+                    <span>Account</span>
+                  </Link>
+                )}
               </div>
-              <Link 
-                href="/auth/signin" 
-                className="px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-blue text-background rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 text-center"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sign In
-              </Link>
+              
+              {session ? (
+                <div className="pt-4 border-t border-border">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-300">
+                      Hi, {session.user?.name?.split(' ')[0] || session.user?.email}
+                    </span>
+                    <Button
+                      onClick={() => {
+                        signOut()
+                        setIsMenuOpen(false)
+                      }}
+                      variant="ghost"
+                      size="sm"
+                      className="p-2 hover:text-neon-cyan transition-colors"
+                    >
+                      <LogOut size={16} />
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Link 
+                    href="/auth/signin" 
+                    className="block px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-blue text-background rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link 
+                    href="/auth/signup" 
+                    className="block px-4 py-2 border border-neon-cyan text-neon-cyan rounded-lg hover:bg-neon-cyan hover:text-background transition-all duration-300 text-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}

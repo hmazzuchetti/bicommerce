@@ -3,6 +3,7 @@ import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
 import Navigation from "@/components/Navigation";
+import AuthSessionProvider from "@/components/providers/SessionProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -58,10 +59,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${orbitron.variable} antialiased matrix-bg`}
       >
-        <CartProvider>
-          <Navigation />
-          {children}
-        </CartProvider>
+        <AuthSessionProvider>
+          <CartProvider>
+            <Navigation />
+            {children}
+          </CartProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

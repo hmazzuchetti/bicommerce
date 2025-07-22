@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const checkoutSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -28,6 +29,7 @@ type CheckoutFormData = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutPage() {
   const { items, getTotalPrice, getTotalItems, clearCart } = useCart();
+  const { data: session } = useSession();
   const [isProcessing, setIsProcessing] = useState(false);
   const [step, setStep] = useState<'shipping' | 'payment' | 'confirmation'>('shipping');
   const [orderData, setOrderData] = useState<any>(null);
@@ -36,8 +38,14 @@ export default function CheckoutPage() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      email: session?.user?.email || '',
+      firstName: session?.user?.name?.split(' ')[0] || '',
+      lastName: session?.user?.name?.split(' ')[1] || '',
+    },
   });
 
   if (items.length === 0 && step !== 'confirmation') {
@@ -74,14 +82,14 @@ export default function CheckoutPage() {
     
     try {
       // Step 1: Create order in backend
-      const orderResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
+      const orderResponse = await fetch('/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           items: items.map(item => ({
-            productId: item.product.id,
+            productId: item.id,
             quantity: item.quantity,
           })),
           shippingAddress: {
@@ -93,6 +101,7 @@ export default function CheckoutPage() {
             country: data.country,
           },
           customerEmail: data.email,
+          userId: session?.user?.id,
         }),
       });
 
@@ -103,7 +112,7 @@ export default function CheckoutPage() {
       const order = await orderResponse.json();
 
       // Step 2: Create payment intent
-      const paymentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stripe/create-payment-intent`, {
+      const paymentResponse = await fetch('/api/stripe/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -385,21 +394,21 @@ export default function CheckoutPage() {
                   {/* Order Items */}
                   <div className="space-y-3 max-h-60 overflow-y-auto">
                     {items.map((item) => (
-                      <div key={item.product.id} className="flex gap-3">
+                      <div key={item.id} className="flex gap-3">
                         <div className="relative w-12 h-12 rounded overflow-hidden flex-shrink-0">
                           <Image
-                            src={item.product.images[0] || '/placeholder.jpg'}
-                            alt={item.product.name}
+                            src={item.image || '/placeholder.jpg'}
+                            alt={item.name}
                             fill
                             className="object-cover"
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate">{item.product.name}</p>
+                          <p className="text-sm font-medium truncate">{item.name}</p>
                           <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                         </div>
                         <div className="text-sm font-medium">
-                          ${(item.product.price * item.quantity).toFixed(2)}
+                          ${(item.price * item.quantity).toFixed(2)}
                         </div>
                       </div>
                     ))}
