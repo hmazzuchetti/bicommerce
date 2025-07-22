@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
 import { useState } from 'react';
-// import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useSession, signOut } from 'next-auth/react';
 
 export default function Navigation() {
@@ -15,12 +16,12 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { items, getTotalItems } = useCart();
   const { data: session, status } = useSession();
-  // const t = useTranslations('navigation');
+  const { t } = useLanguage();
 
   const navItems = [
-    { href: '/products', label: 'Products' },
-    { href: '/categories', label: 'Categories' },
-    { href: '/about', label: 'About' },
+    { href: '/products', label: t('navigation.products') },
+    { href: '/categories', label: t('navigation.categories') },
+    { href: '/about', label: t('navigation.about') },
   ];
 
   const isActive = (href: string) => pathname === href;
@@ -31,7 +32,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold font-[family-name:var(--font-orbitron)] text-neon-cyan hover:scale-105 transition-transform">
-            BiCommerce
+{t('navigation.logo')}
           </Link>
 
           {/* Desktop Navigation */}
@@ -51,6 +52,7 @@ export default function Navigation() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
             <Link href="/cart" className="relative p-2 hover:text-neon-cyan transition-colors group">
               <ShoppingCart size={20} className="group-hover:scale-110 transition-transform" />
               {getTotalItems() > 0 && (
@@ -67,7 +69,7 @@ export default function Navigation() {
                 </Link>
                 <div className="flex items-center space-x-2">
                   <span className="text-sm text-gray-300">
-                    Hi, {session.user?.name?.split(' ')[0] || session.user?.email}
+{t('navigation.hi')}{session.user?.name?.split(' ')[0] || session.user?.email}
                   </span>
                   <Button
                     onClick={() => signOut()}
@@ -85,13 +87,13 @@ export default function Navigation() {
                   href="/auth/signin" 
                   className="px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-blue text-background rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
                 >
-                  Sign In
+                  {t('navigation.signIn')}
                 </Link>
                 <Link 
                   href="/auth/signup" 
                   className="px-4 py-2 border border-neon-cyan text-neon-cyan rounded-lg hover:bg-neon-cyan hover:text-background transition-all duration-300"
                 >
-                  Sign Up
+                  {t('navigation.signUp')}
                 </Link>
               </>
             )}
@@ -131,7 +133,7 @@ export default function Navigation() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <ShoppingCart size={20} />
-                  <span>Cart ({getTotalItems()})</span>
+                  <span>{t('navigation.cart')} ({getTotalItems()})</span>
                 </Link>
                 {session && (
                   <Link 
@@ -140,7 +142,7 @@ export default function Navigation() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <User size={20} />
-                    <span>Account</span>
+                    <span>{t('navigation.account')}</span>
                   </Link>
                 )}
               </div>
@@ -149,7 +151,7 @@ export default function Navigation() {
                 <div className="pt-4 border-t border-border">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-300">
-                      Hi, {session.user?.name?.split(' ')[0] || session.user?.email}
+  {t('navigation.hi')}{session.user?.name?.split(' ')[0] || session.user?.email}
                     </span>
                     <Button
                       onClick={() => {
@@ -171,14 +173,14 @@ export default function Navigation() {
                     className="block px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-blue text-background rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 text-center"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign In
+                    {t('navigation.signIn')}
                   </Link>
                   <Link 
                     href="/auth/signup" 
                     className="block px-4 py-2 border border-neon-cyan text-neon-cyan rounded-lg hover:bg-neon-cyan hover:text-background transition-all duration-300 text-center"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign Up
+                    {t('navigation.signUp')}
                   </Link>
                 </div>
               )}

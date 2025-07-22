@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Navigation from "@/components/Navigation";
 import AuthSessionProvider from "@/components/providers/SessionProvider";
 
@@ -60,10 +61,12 @@ export default function RootLayout({
         className={`${inter.variable} ${orbitron.variable} antialiased matrix-bg`}
       >
         <AuthSessionProvider>
-          <CartProvider>
-            <Navigation />
-            {children}
-          </CartProvider>
+          <LanguageProvider>
+            <CartProvider>
+              <Navigation />
+              {children}
+            </CartProvider>
+          </LanguageProvider>
         </AuthSessionProvider>
       </body>
     </html>
